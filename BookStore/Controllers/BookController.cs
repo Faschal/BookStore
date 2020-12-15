@@ -16,9 +16,11 @@ namespace BookStore.Controllers
         {
             bookRepository = new BookRepository();
         }
-        public List<Book> getAllBooks()
+        public ViewResult getAllBooks()
         {
-            return bookRepository.getAllBooks();
+            var data = bookRepository.getAllBooks();
+
+            return View();
         }
 
         public Book getBook(int id)
