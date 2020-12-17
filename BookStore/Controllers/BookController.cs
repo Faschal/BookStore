@@ -20,7 +20,7 @@ namespace BookStore.Controllers
         {
             var data = bookRepository.getAllBooks();
 
-            return View();
+            return View(data);
         }
 
         public Book getBook(int id)
