@@ -23,9 +23,11 @@ namespace BookStore.Controllers
             return View(data);
         }
 
-        public Book getBook(int id)
+        public ViewResult getBook(int id)
         {
-            return bookRepository.getBookById(id);
+            var data = bookRepository.getBookById(id);
+
+            return View(data);
         }
 
         public List<Book> searchBooks(string name, string author)

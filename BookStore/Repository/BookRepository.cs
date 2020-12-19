@@ -27,11 +27,11 @@ namespace BookStore.Repository
         {
             return new List<Book>()
             {
-                new Book(){Id = 1, Title = "Dragon Ball", Author = "Toriyama", Description = "Display short description of Book 1"}, 
-                new Book(){Id = 2, Title = "Lord of the Ring", Author = "Tolkien", Description = "Display short description of Book 2"},
-                new Book(){Id = 3, Title = "Naruto", Author = "Kishimoto", Description = "Display short description of Book 3"},
-                new Book(){Id = 4, Title = "One Piece", Author = "Oda", Description = "Display short description of Book 4"},
-                new Book(){Id = 5, Title = "Berserk", Author = "Miura", Description = "Display short description of Book 5"},
+                new Book(){Id = 1, Title = "Dragon Ball", Author = "Toriyama", Description = "Display short description of Book 1", Category = "Action", Language = "English", TotalPages = 120}, 
+                new Book(){Id = 2, Title = "Lord of the Ring", Author = "Tolkien", Description = "Display short description of Book 2", Category = "Fantasy", Language = "English", TotalPages = 400},
+                new Book(){Id = 3, Title = "Naruto", Author = "Kishimoto", Description = "Display short description of Book 3", Category = "Action", Language = "Japan", TotalPages = 140},
+                new Book(){Id = 4, Title = "One Piece", Author = "Oda", Description = "Display short description of Book 4", Category = "Adventure", Language = "English", TotalPages = 120},
+                new Book(){Id = 5, Title = "Berserk", Author = "Miura", Description = "Display short description of Book 5", Category = "Fantasy", Language = "English", TotalPages = 200},
             };
         }
     }
