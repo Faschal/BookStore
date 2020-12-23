@@ -23,6 +23,7 @@ namespace BookStore.Controllers
             return View(data);
         }
 
+        [Route("book-detail/{id}", Name = "book.detail")]
         public ViewResult getBook(int id)
         {
             var data = bookRepository.getBookById(id);

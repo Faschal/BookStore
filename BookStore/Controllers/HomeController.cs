@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 namespace BookStore.Controllers
 {
     public class HomeController : Controller
-    {
+    {   
         public ViewResult index()
-        {
-            ViewData["book"] = new Book() { Author = "Alex", Id = 1};
+        {            
             return View();
         }
 
