@@ -4,8 +4,8 @@
 
 a.navbar-brand {
     white-space: normal;
-    text-align: center;
-    word-break: break-all;
+    text-align: start;
+    word-break: normal;
 }
 
 a {
@@ -49,8 +49,7 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-    position: relative;
+html {    
     min-height: 100%;
 }
 
