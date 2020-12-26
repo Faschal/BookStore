@@ -35,5 +35,16 @@ namespace BookStore.Controllers
         {
             return bookRepository.searchBook(name, author);
         }
+
+        public ViewResult addBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult addBook(Book book)
+        {
+            return View();
+        }
     }
 }
