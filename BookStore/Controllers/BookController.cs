@@ -16,17 +16,17 @@ namespace BookStore.Controllers
         {
             _bookRepository = bookRepository;   
         }
-        public ViewResult getAllBooks()
+        public async Task<ViewResult> getAllBooks()
         {
-            var data = _bookRepository.getAllBooks();
+            var data = await _bookRepository.getAllBooks();
 
             return View(data);
         }
 
         [Route("book-detail/{id}", Name = "book.detail")]
-        public ViewResult getBook(int id)
+        public async Task<ViewResult> getBook(int id)
         {
-            var data = _bookRepository.getBookById(id);
+            var data = await _bookRepository.getBookById(id);
 
             return View(data);
         }

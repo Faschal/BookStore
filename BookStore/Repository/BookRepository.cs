@@ -1,5 +1,6 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +35,49 @@ namespace BookStore.Repository
             return newBook.Id;
         }
 
-        public List<Book> getAllBooks()
+        public async Task<List<Book>> getAllBooks()
         {
-            return dataSource();
+            var books = new List<Book>();
+            var allbooks = await _context.Books.ToListAsync();
+            if (allbooks?.Any() == true)
+            {
+                foreach (var book in allbooks)
+                {
+                    books.Add(new Book()
+                    {
+                        Author = book.Author,
+                        Category = book.Category,
+                        Description = book.Description,
+                        Id = book.Id,
+                        Language = book.Language,
+                        Title = book.Title,
+                        TotalPages = book.TotalPages
+                    });
+                }
+            }
+            return books;
         }
 
-        public Book getBookById(int id)
+        public async Task<Book> getBookById(int id)
         {
-            return dataSource().Where(x => x.Id == id).FirstOrDefault();
+            var book = await _context.Books.FindAsync(id);            
+            if (book != null)
+            {
+                var bookDetail = new Book()
+                {
+                    Author = book.Author,
+                    Category = book.Category,
+                    Description = book.Description,
+                    Id = book.Id,
+                    Language = book.Language,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages
+                };
+
+                return bookDetail;
+            }
+
+            return null;
         }
 
         public List<Book> searchBook(string title, string author)
