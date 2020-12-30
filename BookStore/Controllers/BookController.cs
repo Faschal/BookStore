@@ -10,15 +10,15 @@ namespace BookStore.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookRepository  bookRepository = null;
+        private readonly BookRepository _bookRepository = null;
         
-        public BookController()
+        public BookController(BookRepository bookRepository)
         {
-            bookRepository = new BookRepository();
+            _bookRepository = bookRepository;   
         }
         public ViewResult getAllBooks()
         {
-            var data = bookRepository.getAllBooks();
+            var data = _bookRepository.getAllBooks();
 
             return View(data);
         }
@@ -26,24 +26,31 @@ namespace BookStore.Controllers
         [Route("book-detail/{id}", Name = "book.detail")]
         public ViewResult getBook(int id)
         {
-            var data = bookRepository.getBookById(id);
+            var data = _bookRepository.getBookById(id);
 
             return View(data);
         }
 
         public List<Book> searchBooks(string name, string author)
         {
-            return bookRepository.searchBook(name, author);
+            return _bookRepository.searchBook(name, author);
         }
 
-        public ViewResult addBook()
+        public ViewResult addBook(bool isSuccess = false, int bookId = 0)
         {
+            ViewBag.isSuccess = isSuccess;
+            ViewBag.bookId = bookId;
             return View();
         }
 
         [HttpPost]
-        public ViewResult addBook(Book book)
+        public async Task<IActionResult> addBook(Book book)
         {
+            int id = await _bookRepository.addNewBook(book);
+            if(id > 0)
+            {
+                return RedirectToAction(nameof(addBook), new { isSuccess = true, bookId = id });
+            }
             return View();
         }
     }
