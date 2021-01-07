@@ -16,7 +16,13 @@
         </div>
     }
 
-<form method="post" asp-action="addbook" asp-controller="book">
+    @*<div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>*@
+
+<form method="post" enctype="multipart/form-data" asp-action="AddBook" asp-controller="Book">
     @*<div asp-validation-summary="All" class="text-danger"> </div>*@
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -33,7 +39,7 @@
     <div class="form-group">
         <label asp-for="LanguageId"></label>
         <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
-           <option value="">Please choose a language</option>
+            <option value="">Please choose a language</option>
         </select>
         <span asp-validation-for="LanguageId" class="text-danger"></span>
     </div>
@@ -51,7 +57,34 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="CoverFoto" class="form-label"></label>        
+        <div class="mb-3">            
+            <input asp-for="CoverFoto" class="form-control" type="file" id="formFile">
+        </div>
+        <span asp-validation-for="CoverFoto" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <button type="submit" class="btn btn-primary">Add Book</button>
     </div>
 </form>
 </div>
+
+@*@section scripts {
+    <script>
+        function myComplete(data) {
+            alert("Complete");
+            console.log(data);
+        }
+
+        function mySuccess(data) {
+            alert("Success");
+            console.log(data);
+        }
+
+        function myFailure(data) {
+            alert("Failure");
+            console.log(data);
+        }
+    </script>*@
+}

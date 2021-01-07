@@ -27,7 +27,8 @@ namespace BookStore.Repository
                 Title = model.Title,
                 LanguageId = model.LanguageId,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
-                UpdatedOn = DateTime.UtcNow
+                UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl = model.CoverImageUrl
             };
 
             await _context.Books.AddAsync(newBook);
@@ -38,26 +39,19 @@ namespace BookStore.Repository
 
         public async Task<List<Book>> getAllBooks()
         {
-            var books = new List<Book>();
-            var allbooks = await _context.Books.ToListAsync();
-            if (allbooks?.Any() == true)
-            {
-                foreach (var book in allbooks)
+            return await _context.Books
+                .Select(book => new Book()
                 {
-                    books.Add(new Book()
-                    {
-                        Author = book.Author,
-                        Category = book.Category,
-                        Description = book.Description,
-                        Id = book.Id,
-                        LanguageId = book.LanguageId,
-                        Language = book.Language.Name,
-                        Title = book.Title,
-                        TotalPages = book.TotalPages
-                    });
-                }
-            }
-            return books;
+                    Author = book.Author,
+                    Category = book.Category,
+                    Description = book.Description,
+                    Id = book.Id,
+                    LanguageId = book.LanguageId,
+                    Language = book.Language.Name,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl
+                }).ToListAsync();
         }
 
         public async Task<Book> getBookById(int id)
@@ -72,7 +66,8 @@ namespace BookStore.Repository
                     LanguageId = book.LanguageId,
                     Language = book.Language.Name,
                     Title = book.Title,
-                    TotalPages = book.TotalPages
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl
                 }).FirstOrDefaultAsync();               
         }
 
