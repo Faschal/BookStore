@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -65,12 +66,25 @@ namespace BookStore.Controllers
                 if (book.CoverFoto != null)
                 {
                     string folder = "books/cover/";
-                    folder += Guid.NewGuid().ToString() + "_" + book.CoverFoto.FileName;
-                    book.CoverImageUrl = "/"+folder;
+                    book.CoverImageUrl = await UploadImage(folder, book.CoverFoto);
+                }
 
-                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                if (book.GalleryFiles != null)
+                {
+                    string folder = "books/gallery/";
+                    book.Gallery = new List<GalleryModel>();
 
-                    await book.CoverFoto.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                    foreach (var file in book.GalleryFiles)
+                    {
+                        var gallery = new GalleryModel()
+                        {
+                            Name = file.FileName,
+                            URL = await UploadImage(folder, file),
+                        };
+
+                        book.Gallery.Add(gallery);                        
+                    }
+                    
                 }
 
                 int id = await _bookRepository.addNewBook(book);
@@ -84,6 +98,16 @@ namespace BookStore.Controllers
 
             return View();
         }
-        
+
+        private async Task<string> UploadImage(string folderPath, IFormFile file)
+        {            
+            folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;            
+
+            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
+
+            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            return "/" + folderPath;
+        }
     }
 }
