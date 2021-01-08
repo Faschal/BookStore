@@ -87,6 +87,12 @@ namespace BookStore.Controllers
                     
                 }
 
+                if (book.BookPdf != null)
+                {
+                    string folder = "books/pdf/";
+                    book.BookPdfUrl = await UploadImage(folder, book.BookPdf);
+                }
+
                 int id = await _bookRepository.addNewBook(book);
                 if (id > 0)
                 {

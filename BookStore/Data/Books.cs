@@ -22,6 +22,7 @@ namespace BookStore.Data
         public int TotalPages { get; set; }
 
         public string CoverImageUrl { get; set; }
+        public string BookPdfUrl { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 
@@ -29,5 +30,6 @@ namespace BookStore.Data
 
         public Language Language { get; set; }
         public ICollection<BookGallery> bookGallery { get; set; }
+        
     }
 }
