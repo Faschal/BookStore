@@ -16,22 +16,13 @@
 
 <div class="py-5 bg-light">
     <div class="container">
-        @*<h3 class="h3">Top Books</h3>*@
-        <big>Top books</big>
+        <h3 class="h3">Top Books</h3>        
         
-        <div class="row">
-            <div class="col-md-4">
-                <partial name="_bookThumbnail" model="new Book()"/>                
-            </div>
+        @*@await Component.InvokeAsync("TopBooks")*@ 
 
-            <div class="col-md-4">
-                @await Html.PartialAsync("_bookThumbnail", new Book());
-            </div>
+        <vc:top-books count="3"></vc:top-books>
 
-            <div class="col-md-4">
-                @await Html.PartialAsync("_bookThumbnail", new Book());
-            </div>
-        </div>
+
     </div>
 </div>
 
