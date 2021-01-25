@@ -1,6 +1,7 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace BookStore.Repository
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext _context = null;
+        private readonly IConfiguration _configuration;
 
-        public BookRepository(BookStoreContext context)
+        public BookRepository(BookStoreContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<int> addNewBook(Book model)
@@ -39,9 +42,9 @@ namespace BookStore.Repository
                 newBook.bookGallery.Add(new BookGallery()
                 {
                     Name = file.Name,
-                    URL = file.URL 
+                    URL = file.URL
                 });
-            }    
+            }
 
             await _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();
@@ -62,7 +65,7 @@ namespace BookStore.Repository
                     Language = book.Language.Name,
                     Title = book.Title,
                     TotalPages = book.TotalPages,
-                    CoverImageUrl = book.CoverImageUrl,                    
+                    CoverImageUrl = book.CoverImageUrl,
                 }).ToListAsync();
         }
 
@@ -87,7 +90,7 @@ namespace BookStore.Repository
                         URL = g.URL
                     }).ToList(),
                     BookPdfUrl = book.BookPdfUrl
-                }).FirstOrDefaultAsync();               
+                }).FirstOrDefaultAsync();
         }
 
         public async Task<List<Book>> getTopBooksAsync(int count)
@@ -112,6 +115,11 @@ namespace BookStore.Repository
         {
             return null;
         }
-       
+
+        public string getAppName()
+        {
+            return _configuration["AppName"];
+        }
+
     }
 }

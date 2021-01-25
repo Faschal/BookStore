@@ -15,11 +15,11 @@ namespace BookStore.Controllers
     [Route("[controller]/[action]")]
     public class BookController : Controller
     {
-        private readonly BookRepository _bookRepository = null;
-        private readonly LanguageRepository _languageRepository = null;
+        private readonly IBookRepository _bookRepository = null;
+        private readonly ILanguageRepository _languageRepository = null;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public BookController(BookRepository bookRepository, LanguageRepository languageRepository, IWebHostEnvironment webHostEnvironment)
+        public BookController(IBookRepository bookRepository, ILanguageRepository languageRepository, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = bookRepository;
             _languageRepository = languageRepository;
@@ -52,9 +52,7 @@ namespace BookStore.Controllers
             var model = new Book()
             {
                 //Language = "2"
-            };
-
-            ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");
+            };            
           
             ViewBag.isSuccess = isSuccess;
             ViewBag.bookId = bookId;
@@ -101,9 +99,7 @@ namespace BookStore.Controllers
                 {
                     return RedirectToAction(nameof(addBook), new { isSuccess = true, bookId = id });
                 }
-            }
-
-            ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");
+            }            
 
             return View();
         }

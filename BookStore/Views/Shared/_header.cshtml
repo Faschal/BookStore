@@ -1,9 +1,12 @@
-﻿<header>
+﻿@inject BookStore.Repository.IBookRepository _bookRepository
+@inject Microsoft.Extensions.Configuration.IConfiguration _configuration
+
+<header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" asp-controller="Home" asp-action="index">
                 <img src="~/images/logo.png" alt="logo" width="30" height="30" asp-append-version="true" class="d-inline-block align-top" />
-                Bookstore
+                @_configuration["AppName"] 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
