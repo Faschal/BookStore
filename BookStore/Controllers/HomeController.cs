@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {   
+        [Route("~/")]
         public ViewResult index()
         {            
             return View();
         }
-
+        
         public ViewResult aboutUs()
         {
             return View();
         }
-
+        
         public ViewResult contactUs()
         {
             return View();

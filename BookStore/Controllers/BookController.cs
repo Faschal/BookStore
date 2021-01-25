@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookStore.Controllers
 {
+    [Route("[controller]/[action]")]
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository = null;
@@ -24,6 +25,8 @@ namespace BookStore.Controllers
             _languageRepository = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        [Route("~/all-books")]
         public async Task<ViewResult> getAllBooks()
         {
             var data = await _bookRepository.getAllBooks();
@@ -31,7 +34,7 @@ namespace BookStore.Controllers
             return View(data);
         }
 
-        [Route("book-detail/{id}", Name = "book.detail")]
+        [Route("~/book-detail/{id}", Name = "book.detail")]
         public async Task<ViewResult> getBook(int id)
         {
             var data = await _bookRepository.getBookById(id);
