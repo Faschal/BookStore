@@ -7,5 +7,6 @@ namespace BookStore.Repository
     public interface IAccountRepository
     {
         Task<IdentityResult> CreateUser(SignUpUser userModel);
+        Task<SignInResult> PasswordSignIn(SignIn signInModel);
     }
 }
