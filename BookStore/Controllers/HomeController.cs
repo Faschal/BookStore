@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+using BookStore.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,23 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+
     [Route("[controller]/[action]")]
-    public class HomeController : Controller
-    {   
+    public class HomeController : Controller 
+    {
+        private readonly IUserService _userService;
+
+        public HomeController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [Route("~/")]
         public ViewResult index()
-        {            
+        {
+            var userId = _userService.GetUserId();
+            var isLoggedIn = _userService.IsAuthenticated();
+
             return View();
         }
         

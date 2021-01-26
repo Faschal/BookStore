@@ -6,6 +6,7 @@ using BookStore.Data;
 using BookStore.Helpers;
 using BookStore.Models;
 using BookStore.Repository;
+using BookStore.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,7 @@ namespace BookStore
             services.AddScoped<IBookRepository, BookRepository>();   
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
