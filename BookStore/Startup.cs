@@ -35,6 +35,10 @@ namespace BookStore
                 options.Password.RequiredLength = 5;
                 options.Password.RequireNonAlphanumeric = false;
             });
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = _configuration["Application:LoginPath"];
+            });
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IBookRepository, BookRepository>();   
@@ -54,6 +58,8 @@ namespace BookStore
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

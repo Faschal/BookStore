@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Models;
 using BookStore.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,7 @@ namespace BookStore.Controllers
             return _bookRepository.searchBook(name, author);
         }
 
+        [Authorize]
         public async Task<ViewResult> addBook(bool isSuccess = false, int bookId = 0)
         {
             var model = new Book()
