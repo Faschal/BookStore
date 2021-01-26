@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿
+using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -69,6 +70,13 @@ namespace BookStore.Controllers
             }
 
             return View(signInModel);
+        }
+
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _accountRepository.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
