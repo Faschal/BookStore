@@ -18,8 +18,8 @@ namespace BookStore.Service
 
         public async Task SendTestEmail(UserEmailOptions userEmailOptions)
         {
-            userEmailOptions.Subject = "This is a test email";
-            userEmailOptions.Body = GetEmailBody("TestEmail");
+            userEmailOptions.Subject = UpdatePlaceHolder("This is a test email", userEmailOptions.PlaceHolders);
+            userEmailOptions.Body = UpdatePlaceHolder(GetEmailBody("TestEmail"), userEmailOptions.PlaceHolders);
 
             await SendEmail(userEmailOptions);
         }
@@ -64,6 +64,22 @@ namespace BookStore.Service
         {
             var body = File.ReadAllText(string.Format(templatePath, templateName));
             return body;
+        }
+
+        private string UpdatePlaceHolder(string text, List<KeyValuePair<string, string>> keyValuePairs)
+        {
+            if (!string.IsNullOrEmpty(text) && keyValuePairs != null)
+            {
+                foreach (var placeholder in keyValuePairs)
+                {
+                    if (text.Contains(placeholder.Key))
+                    {
+                        text = text.Replace(placeholder.Key, placeholder.Value);
+                    }
+                }
+            }
+
+            return text;
         }
     }
 }
