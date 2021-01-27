@@ -13,17 +13,27 @@ namespace BookStore.Controllers
     public class HomeController : Controller 
     {
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
 
-        public HomeController(IUserService userService)
+        public HomeController(IUserService userService,
+                                IEmailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
 
         [Route("~/")]
-        public ViewResult index()
+        public async Task<ViewResult> index()
         {
-            var userId = _userService.GetUserId();
-            var isLoggedIn = _userService.IsAuthenticated();
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { "test@gmail.com" } 
+            };
+
+            await _emailService.SendTestEmail(options);
+
+            //var userId = _userService.GetUserId();
+            //var isLoggedIn = _userService.IsAuthenticated();
 
             return View();
         }

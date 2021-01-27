@@ -9,6 +9,7 @@ namespace BookStore.Repository
         Task<IdentityResult> CreateUser(SignUpUser userModel);
         Task<SignInResult> PasswordSignIn(SignIn signInModel);
         Task SignOutAsync();
+        Task<IdentityResult> ChangePasswordAsync(ChangePassword model);
 
     }
 }

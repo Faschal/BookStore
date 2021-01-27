@@ -47,6 +47,10 @@ namespace BookStore
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, EmailService>();
+
+            services.Configure<SMTPConfig>(_configuration.GetSection("SMTPConfig"));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
