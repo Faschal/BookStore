@@ -336,6 +336,9 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+# user app setting
+/BookStore/appsetting.json
+
 # BeatPulse healthcheck temp database
 healthchecksdb
 /BookStore/wwwroot/lib
