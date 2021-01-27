@@ -70,8 +70,15 @@ namespace BookStore.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-
-                ModelState.AddModelError("", "Invalid credentials");
+                if (result.IsNotAllowed)
+                {
+                    ModelState.AddModelError("", "Not allowed to login !");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid credentials");
+                }
+                
             }
 
             return View(signInModel);
@@ -111,6 +118,23 @@ namespace BookStore.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string uid, string token)
+        {
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
+            {
+                token = token.Replace(' ', '+');
+                var result = await _accountRepository.ConfirmEmailAsync(uid, token);
+
+                if (result.Succeeded)
+                {
+                    ViewBag.isSuccess = true;
+                }
+            }
+
+            return View();
         }
     }
 }

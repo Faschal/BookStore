@@ -25,19 +25,19 @@ namespace BookStore.Controllers
         [Route("~/")]
         public async Task<ViewResult> index()
         {
-            UserEmailOptions options = new UserEmailOptions
-            {
-                ToEmails = new List<string>() { "test@gmail.com" },
-                PlaceHolders = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("{{ Username }}", "Alex")
-                }
-            };
+            //UserEmailOptions options = new UserEmailOptions
+            //{
+            //    ToEmails = new List<string>() { "test@gmail.com" },
+            //    PlaceHolders = new List<KeyValuePair<string, string>>()
+            //    {
+            //        new KeyValuePair<string, string>("{{ Username }}", "Alex")
+            //    }
+            //};
 
-            await _emailService.SendTestEmail(options);
+            //await _emailService.SendTestEmail(options);
 
-            //var userId = _userService.GetUserId();
-            //var isLoggedIn = _userService.IsAuthenticated();
+            var userId = _userService.GetUserId();
+            var isLoggedIn = _userService.IsAuthenticated();
 
             return View();
         }
