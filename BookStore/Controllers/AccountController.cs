@@ -42,7 +42,7 @@ namespace BookStore.Controllers
                 }
 
                 ModelState.Clear();
-                return View();
+                return RedirectToAction("ConfirmEmail", new { email = userModel.Email });
             }
             return View(userModel);
         }
@@ -121,8 +121,13 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail(string uid, string token)
+        public async Task<IActionResult> ConfirmEmail(string uid, string token, string email)
         {
+            EmailConfirm model = new EmailConfirm
+            {
+                Email = email
+            };
+
             if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
             {
                 token = token.Replace(' ', '+');
@@ -130,11 +135,35 @@ namespace BookStore.Controllers
 
                 if (result.Succeeded)
                 {
-                    ViewBag.isSuccess = true;
+                    model.EmailVerified = true;
                 }
             }
 
-            return View();
+            return View(model);
+        }
+
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(EmailConfirm model)
+        {
+            var user = await _accountRepository.GetUserByEmailAsync(model.Email);
+            if (user != null)
+            {
+                if (user.EmailConfirmed)
+                {
+                    model.EmailVerified = true;
+                    return View(model);
+                }
+
+                await _accountRepository.GenerateEmailConfirmationTokenAsync(user);
+                model.EmailSent = true;
+                ModelState.Clear();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Something went wrong");
+            }
+
+            return View(model);
         }
     }
 }
