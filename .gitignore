@@ -337,7 +337,7 @@ ASALocalRun/
 .localhistory/
 
 # user app setting
-/BookStore/appsetting.json
+/BookStore/appsettings.json
 
 # BeatPulse healthcheck temp database
 healthchecksdb
