@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Financial\Controllers\" />
+    <Folder Include="Areas\Financial\Data\" />
+    <Folder Include="Areas\Financial\Models\" />
+    <Folder Include="Areas\Financial\Views\" />
     <Folder Include="wwwroot\books\cover\" />
     <Folder Include="wwwroot\books\gallery\" />
     <Folder Include="wwwroot\books\pdf\" />
@@ -22,6 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
 </Project>
