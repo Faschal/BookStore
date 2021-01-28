@@ -13,11 +13,13 @@ namespace BookStore.Repository
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
 
         public AccountRepository(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+                                RoleManager<IdentityRole> roleManager,
                                 IUserService userService,
                                 IEmailService emailService,
                                 IConfiguration configuration)
@@ -27,6 +29,7 @@ namespace BookStore.Repository
             _userService = userService;
             _emailService = emailService;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)

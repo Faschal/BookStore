@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,17 @@ using System.Threading.Tasks;
 namespace BookStore.Areas.Admin.Controllers
 {
     [Area("admin")]
-    [Route("admin/")]
+    [Route("admin/[controller]/[action]")]
     public class HomeController : Controller
     {
-        // GET: HomeController
-        [Route("")]
+        // GET: HomeController        
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: HomeController/Details/5
-        [Route("details/{id}")]
+        // GET: HomeController/Details/5        
         public ActionResult Details(int id)
         {
             return View();
